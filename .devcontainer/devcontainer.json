@@ -1,0 +1,67 @@
+// Toyota Motor Europe NV/SA and its affiliates retain all intellectual property and
+// proprietary rights in and to this software, related documentation and any
+// modifications thereto. Any use, reproduction, disclosure or distribution of
+// this software and related documentation without an express license agreement
+// from Toyota Motor Europe NV/SA is strictly prohibited.
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3-anaconda
+{
+	"name": "igibson",
+	"build": {
+		"context": "..",
+		"dockerfile": "Dockerfile",
+	},
+	"containerEnv": {
+		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+		"GITHUB_USER": "${localEnv:GITHUB_USER}"
+	},
+	"runArgs": [
+		"--name=igibson-vscode",
+		"-it",
+		"--gpus=all",
+		"--rm",
+		"--network=host",
+		"--env",
+		"DISPLAY=",
+		"--volume",
+		"/tmp/.X11-unix:/tmp/.X11-unix:rw",
+		"--volume",
+		"${localEnv:HOME}/.Xauthority:/root/.Xauthority:rw",
+		"--volume",
+		"${localWorkspaceFolder}/data:/opt/iGibson/igibson/data:rw",
+		"--env",
+		"QT_X11_NO_MITSHM=1",
+		"--env",
+		"WANDB_API_KEY",
+		"--env",
+		"OPENAI_ORGANIZATION=todo",
+		"--env",
+		"OPENAI_API_KEY=todo",
+	],
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"python.defaultInterpreterPath": "/miniconda/envs/igibson/bin/python",
+				"python.linting.enabled": true,
+				"terminal.integrated.profiles.linux": {
+					"bash (container default)": {
+						"path": "/usr/bin/bash",
+						"overrideName": true
+					},
+					"terminal.integrated.defaultProfile.linux": "bash (container default)"
+				},
+				"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-python.python",
+				"github.copilot",
+				"ms-vscode.cpptools",
+			]
+		}
+	},
+	"postCreateCommand": "git config --global user.name 'todo' && git config --global user.email 'todo@cs.uni-freiburg.de'",
+}

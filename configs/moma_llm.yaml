@@ -1,0 +1,90 @@
+# Toyota Motor Europe NV/SA and its affiliates retain all intellectual property and
+# proprietary rights in and to this software, related documentation and any
+# modifications thereto. Any use, reproduction, disclosure or distribution of
+# this software and related documentation without an express license agreement
+# from Toyota Motor Europe NV/SA is strictly prohibited.
+wandb: false
+agent: moma_llm  # moma_llm / json_llm / greedy / random
+# whether to use the distances and room-object assignments based on viewpoint & voronoi. If false, use dists purely from A* and room assignment to closest voronoi node (w/o viewpoint)
+use_viewpoint_assignment: true
+datasplit: test  # train / test
+# resample episode if the target is detected after the initial 360-turn
+reject_onestep_episodes: true
+
+control_freq: 10.0
+num_episodes_per_scene: 25
+cheap: false
+ground_truth_done_decision: false
+# as how many low-level steps to count a magic open action. Reference is 1 low-level step = 0.1m navigation
+magic_open_cost: 30
+
+# scene
+scene: igibson
+scene_id: Wainscott_1_int
+build_graph: true
+load_texture: true
+pybullet_load_texture: true
+
+# use should_open_all_interior_doors to not open the exterior doors
+should_open_all_doors: false  # original igibson option
+should_open_all_interior_doors: false  # our option to keep exterior doors closed
+use_prior_graph_distribution: true  # whether to spawn additional objects in the scene according to the prior-graph distribution
+prior_graph_object_resample_freq: 1  # resample these objects every X episodes (requires to reinitialize the simulator)
+allow_inside_objects_as_targets: true  # whether objects that are inside articulated objects can be selected as targets
+open_set_room_categories: true  # whether to allow room categories that are not predefined
+
+# domain randomization
+texture_randomization_freq: null
+object_randomization_freq: null
+
+# robot
+collision_ignore_link_a_ids: [0, 1, 2]  # ignore collisions with these robot links FOR FETCH
+#Fetch
+angular_velocity: 2.0
+linear_velocity: 1.0
+robot:
+  name: Fetch
+  action_type: continuous
+  #action_normalize: true
+  scale: 0.85
+  self_collision: True
+
+# task
+task: object_search
+seed: 42  # >0 to set a seed for the igibson env (won't be possible to seed llm, but environment may be become more comparable)
+
+# discount factor
+discount_factor: 0.99
+
+# termination condition (VR demo collection should last forever)
+max_step: 10000000000
+max_high_level_steps: 50
+
+# sensor spec
+output: [proprioception, task_obs, rgb, depth, seg, ins_seg, pc]
+# image
+fisheye: false
+image_width: 256
+image_height: 256
+vertical_fov: 120
+# depth
+depth_low: 0.0
+depth_high: 5.0
+# minimum number of points in the semantic camera image to count an instance as deteced
+min_points_for_detection: 50
+
+# sensor noise
+depth_noise_rate: 0.0
+scan_noise_rate: 0.0
+
+# mapping & topology reasoning
+voxel_size: 0.075
+grid_size_meter: 30
+topology:
+  room_sdf_scale: 5
+  room_sdf_thresh: 0.001
+
+# navigation
+navigation_inflation_radius: 0.1  # in meter
+trav_map_erosion: 0
+

@@ -1,0 +1,1 @@
+{"kitchen": {"bottom_cabinet": "top_cabinet", "kitchen_counter": "counter_top"}, "living_room": {"armchair": "chair", "standing_tv": "t_v_stand", "straight_chair": "chair", "swivel_chair": "arm_chair", "table": "dining_table"}, "bedroom": {"armchair": "chair", "straight_chair": "chair", "table": "dining_table"}, "bathroom": {}}

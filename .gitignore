@@ -1,0 +1,7 @@
+/data
+/logging
+/wandb
+/results
+*.pyc
+*.prof
+nohup*
