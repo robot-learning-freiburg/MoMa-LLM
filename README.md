@@ -16,7 +16,7 @@ Please cite the paper as follows:
 
     @article{honerkamp2024language,
         title={Language-Grounded Dynamic Scene Graphs for Interactive Object Search with Mobile Manipulation},
-        journal={arXiv preprint},
+        journal={IEEE Robotics and Automation Letters},
         author={Daniel Honerkamp and Martin Büchner and Fabien Despinoy and Tim Welschehold and Abhinav Valada},
         year={2024},
     }
